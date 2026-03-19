@@ -48,3 +48,21 @@ export const updateSearchCount = async (query: string, movie: Movie) => {
         throw error;
     }
 };
+
+export const getTrendingMovies = async (): Promise<
+    TrendingMovie[] | undefined
+> => {
+    try {
+        const result = await tablesDB.listRows({
+            databaseId: DATABASE_ID,
+            tableId: METRICS_TABLE,
+            queries: [Query.limit(5), Query.orderDesc('count')],
+            total: false,
+        });
+
+        return result.rows as unknown as TrendingMovie[];
+    } catch (error) {
+        console.error('Error fetching trending movies:', error);
+        return undefined;
+    }
+};

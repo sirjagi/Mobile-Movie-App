@@ -25,11 +25,6 @@ const Search = () => {
             if (searchQuery.trim()) {
                 await loadMovies();
                 console.log('loaded movies');
-
-                if (movies?.length > 0 && movies[0]) {
-                    console.log('Updating search count for:', searchQuery);
-                    await updateSearchCount(searchQuery, movies[0]);
-                }
             } else {
                 reset();
             }
@@ -39,6 +34,13 @@ const Search = () => {
             clearTimeout(timeoutId);
         };
     }, [searchQuery]);
+
+    useEffect(() => {
+        if (movies?.length > 0 && movies[0]) {
+            console.log('Updating search count for:', searchQuery);
+            updateSearchCount(searchQuery, movies[0]);
+        }
+    }, [movies]);
 
     return (
         <View className="flex-1 bg-primary">
