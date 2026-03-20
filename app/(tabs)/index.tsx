@@ -74,7 +74,7 @@ export default function Index() {
                             horizontal
                             showsHorizontalScrollIndicator={false}
                             ItemSeparatorComponent={() => (
-                                <View className="w-4" />
+                                <View className="w-8" />
                             )}
                             className="mb-4 mt-3"
                             data={trendingMovies}
