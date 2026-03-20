@@ -1,50 +1,112 @@
-# Welcome to your Expo app 👋
+# React Native Movie App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A cross-platform mobile movie discovery app built with Expo and React Native. The app lets users browse popular movies, search titles in real time, open detailed movie pages, and surface trending searches based on user activity.
 
-## Get started
+## Overview
 
-1. Install dependencies
+This project combines:
 
-   ```bash
-   npm install
-   ```
+- TMDB (The Movie Database) for movie content
+- Appwrite TablesDB for tracking search analytics
+- Expo Router for file-based navigation
+- NativeWind (Tailwind for React Native) for styling
 
-2. Start the app
+## Features
 
-   ```bash
-   npx expo start
-   ```
+- Browse latest/popular movies on the Home tab
+- Horizontal trending movie rail based on most searched movies
+- Search screen for real-time title lookup with debounce
+- Movie details page with key metadata and summary
 
-In the output, you'll find options to open the app in a
+## Tech Stack
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- Framework: Expo + React Native
+- Language: TypeScript
+- Routing: Expo Router
+- Styling: NativeWind + Tailwind CSS
+- Backend services:
+    - TMDB API for movie data
+    - Appwrite TablesDB for search metrics/trending
+- Tooling: ESLint (Expo config)
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Project Structure
 
-## Get a fresh project
+```text
+app/
+	_layout.tsx            # Root stack navigator
+	(tabs)/
+		_layout.tsx          # Bottom tabs configuration
+		index.tsx            # Home screen
+		search.tsx           # Search screen
+		saved.tsx            # Saved placeholder
+		profile.tsx          # Profile placeholder
+	movies/
+		[id].tsx             # Movie details screen
 
-When you're ready, run:
+components/
+	MovieCard.tsx
+	SearchBar.tsx
+	TrendingCard.tsx
 
-```bash
-npm run reset-project
+services/
+	api.ts                 # TMDB fetch helpers
+	appwrite.ts            # Appwrite metrics + details helpers
+	useFetch.ts            # Generic fetch hook
+
+constants/
+	icons.ts
+	images.ts
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Environment Variables
 
-## Learn more
+Create a `.env` file in the project root and add:
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+EXPO_PUBLIC_IMDB_ACCESS_TOKEN=your_tmdb_bearer_token
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+EXPO_PUBLIC_APPWRITE_ENDPOINT=https://<your-appwrite-endpoint>/v1
+EXPO_PUBLIC_APPWRITE_PROJECT_ID=your_appwrite_project_id
+EXPO_PUBLIC_APPWRITE_DATABASE_ID=your_appwrite_database_id
+EXPO_PUBLIC_APPWRITE_METRICS_TABLE=your_metrics_table_id
+```
 
-## Join the community
+## Getting Started
 
-Join our community of developers creating universal apps.
+### 1. Install dependencies
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```bash
+npm install
+```
+
+### 2. Configure environment variables
+
+- Add the `.env` file as shown above.
+
+### 3. Start the development server
+
+```bash
+npx expo start
+```
+
+Then run on your preferred target:
+
+- Android: `npm run android`
+- iOS: `npm run ios`
+- Web: `npm run web`
+
+## Available Scripts
+
+- `npm run start` - Start Expo dev server
+- `npm run android` - Open app on Android
+- `npm run ios` - Open app on iOS
+- `npm run web` - Run web build via Expo
+- `npm run lint` - Run lint checks
+
+## Future Improvements
+
+- Implement real Saved movies functionality
+- Add user authentication/profile management
+- Add pagination and pull-to-refresh on listing screens
+- Improve error states and offline handling
+- Add automated tests for hooks and service layer
